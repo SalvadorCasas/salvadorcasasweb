@@ -1,9 +1,16 @@
-# Archivos personales de Claude Code (no se comparten)
+# Archivos de Claude Code (no se comparten)
+CLAUDE.md
 CLAUDE.local.md
-.claude/settings.local.json
+.claude/
+
+# Originales sin procesar (pesados; solo se suben las versiones optimizadas)
+_originales/
 
 # Sistema operativo y editor
 Thumbs.db
 Desktop.ini
 .DS_Store
 .vscode/
+
+# Caché de Python
+__pycache__/

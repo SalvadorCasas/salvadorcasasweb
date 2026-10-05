@@ -1,0 +1,63 @@
+# =========================================================
+#  Seguridad del sitio (Apache / LiteSpeed, por ejemplo Duplika)
+#  Si se agrega un recurso externo (fuente, script, imagen de otro sitio),
+#  actualizar la Content-Security-Policy acá y en el <meta> de index.html.
+# =========================================================
+
+# ---------- Forzar HTTPS ----------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# ---------- Cabeceras de seguridad ----------
+<IfModule mod_headers.c>
+  # El navegador recuerda por 1 año que el sitio solo se abre por HTTPS.
+  # No se usa includeSubDomains para no afectar otros subdominios (por ejemplo, doblebarra).
+  Header always set Strict-Transport-Security "max-age=31536000"
+
+  # Qué recursos puede cargar la página: solo propios. El formulario solo se envía a FormSubmit.
+  # frame-ancestors 'none' impide que otro sitio meta esta página en un iframe (clickjacking).
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'none'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action https://formsubmit.co; frame-ancestors 'none'; upgrade-insecure-requests"
+
+  # Lo mismo que frame-ancestors, para navegadores viejos.
+  Header always set X-Frame-Options "DENY"
+
+  # El navegador no "adivina" el tipo de archivo (evita que un archivo se ejecute como otra cosa).
+  Header always set X-Content-Type-Options "nosniff"
+
+  # Al ir a otro sitio, solo se envía el dominio de origen, no la URL completa.
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # La página no usa cámara, micrófono, ubicación ni pagos: se bloquean.
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+
+  # Aísla la pestaña de las ventanas que abre.
+  Header always set Cross-Origin-Opener-Policy "same-origin"
+
+  # No anunciar qué tecnología usa el servidor (PHP, versión, etc.).
+  Header always unset X-Powered-By
+  Header unset X-Powered-By
+</IfModule>
+
+# ---------- No revelar datos del servidor ----------
+# Las páginas de error no muestran el nombre ni la versión del servidor.
+ServerSignature Off
+# La "huella" de cada archivo (ETag) no incluye datos internos del disco.
+FileETag MTime Size
+
+# ---------- Archivos que no deben verse desde la web ----------
+# Sin listado de carpetas.
+Options -Indexes
+
+# Carpetas de Git y de Claude Code (por si el sitio se publica clonando el repositorio).
+RedirectMatch 404 /\.(git|claude)(/|$)
+
+# Carpetas internas que empiezan con "_" (_herramientas, _originales): no son parte del sitio.
+RedirectMatch 404 /_[^/]+(/|$)
+
+# Archivos internos del proyecto.
+<FilesMatch "^(\.htaccess|\.gitignore|CLAUDE\.md|CLAUDE\.local\.md|README\.md)$">
+  Require all denied
+</FilesMatch>
