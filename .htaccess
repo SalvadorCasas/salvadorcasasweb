@@ -1,63 +1,69 @@
 # =========================================================
-#  Seguridad del sitio (Apache / LiteSpeed, por ejemplo Duplika)
+#  Seguridad del sitio personal (Apache / LiteSpeed, por ejemplo Duplika)
+#
+#  IMPORTANTE: en Duplika la carpeta de Doble Barra hereda este archivo.
+#  Por eso CADA regla se aplica solo a salvadorcasas.com.ar (y www):
+#  - las cabeceras llevan "env=SITIO_PERSONAL";
+#  - las redirecciones llevan un RewriteCond con el dominio.
+#  No agregar reglas que no puedan limitarse al dominio.
+#
 #  Si se agrega un recurso externo (fuente, script, imagen de otro sitio),
 #  actualizar la Content-Security-Policy acá y en el <meta> de index.html.
 # =========================================================
 
-# ---------- Forzar HTTPS ----------
-<IfModule mod_rewrite.c>
-  RewriteEngine On
-  RewriteCond %{HTTPS} !=on
-  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# Marca las visitas al sitio personal. Cualquier otro dominio o subdominio no la tiene.
+<IfModule mod_setenvif.c>
+  SetEnvIfNoCase Host "^(www\.)?salvadorcasas\.com\.ar$" SITIO_PERSONAL
 </IfModule>
 
-# ---------- Cabeceras de seguridad ----------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # ---------- Forzar HTTPS (solo el sitio personal) ----------
+  RewriteCond %{HTTP_HOST} ^(www\.)?salvadorcasas\.com\.ar$ [NC]
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # ---------- Archivos y carpetas internas: "no encontrado" (solo el sitio personal) ----------
+  # .git, .claude, carpetas que empiezan con "_" y archivos internos del proyecto.
+  RewriteCond %{HTTP_HOST} ^(www\.)?salvadorcasas\.com\.ar$ [NC]
+  RewriteRule (^|/)(\.git|\.claude|_[^/]+)(/|$) - [R=404,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?salvadorcasas\.com\.ar$ [NC]
+  RewriteRule (^|/)(CLAUDE(\.local)?\.md|README\.md|\.gitignore)$ - [R=404,L]
+</IfModule>
+
 <IfModule mod_headers.c>
-  # El navegador recuerda por 1 año que el sitio solo se abre por HTTPS.
-  # No se usa includeSubDomains para no afectar otros subdominios (por ejemplo, doblebarra).
-  Header always set Strict-Transport-Security "max-age=31536000"
+  # ---------- Cabeceras de seguridad (solo el sitio personal) ----------
+  # El navegador recuerda por 1 año que el sitio solo se abre por HTTPS (sin includeSubDomains).
+  Header always set Strict-Transport-Security "max-age=31536000" env=SITIO_PERSONAL
 
   # Qué recursos puede cargar la página: solo propios. El formulario solo se envía a FormSubmit.
   # frame-ancestors 'none' impide que otro sitio meta esta página en un iframe (clickjacking).
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'none'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action https://formsubmit.co; frame-ancestors 'none'; upgrade-insecure-requests"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'none'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action https://formsubmit.co; frame-ancestors 'none'; upgrade-insecure-requests" env=SITIO_PERSONAL
 
   # Lo mismo que frame-ancestors, para navegadores viejos.
-  Header always set X-Frame-Options "DENY"
+  Header always set X-Frame-Options "DENY" env=SITIO_PERSONAL
 
-  # El navegador no "adivina" el tipo de archivo (evita que un archivo se ejecute como otra cosa).
-  Header always set X-Content-Type-Options "nosniff"
+  # El navegador no "adivina" el tipo de archivo.
+  Header always set X-Content-Type-Options "nosniff" env=SITIO_PERSONAL
 
   # Al ir a otro sitio, solo se envía el dominio de origen, no la URL completa.
-  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin" env=SITIO_PERSONAL
 
   # La página no usa cámara, micrófono, ubicación ni pagos: se bloquean.
-  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()" env=SITIO_PERSONAL
 
   # Aísla la pestaña de las ventanas que abre.
-  Header always set Cross-Origin-Opener-Policy "same-origin"
+  Header always set Cross-Origin-Opener-Policy "same-origin" env=SITIO_PERSONAL
 
-  # No anunciar qué tecnología usa el servidor (PHP, versión, etc.).
-  Header always unset X-Powered-By
-  Header unset X-Powered-By
+  # No anunciar qué tecnología usa el servidor.
+  Header always unset X-Powered-By env=SITIO_PERSONAL
+  Header unset X-Powered-By env=SITIO_PERSONAL
+
+  # ---------- Caché (solo el sitio personal) ----------
+  # El HTML se vuelve a consultar en cada visita, así cada actualización se ve enseguida.
+  # El CSS se pide como styles.css?v=FECHA: al cambiar la fecha, el navegador baja el nuevo.
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache" env=SITIO_PERSONAL
+  </FilesMatch>
 </IfModule>
-
-# ---------- No revelar datos del servidor ----------
-# Las páginas de error no muestran el nombre ni la versión del servidor.
-ServerSignature Off
-# La "huella" de cada archivo (ETag) no incluye datos internos del disco.
-FileETag MTime Size
-
-# ---------- Archivos que no deben verse desde la web ----------
-# Sin listado de carpetas.
-Options -Indexes
-
-# Carpetas de Git y de Claude Code (por si el sitio se publica clonando el repositorio).
-RedirectMatch 404 /\.(git|claude)(/|$)
-
-# Carpetas internas que empiezan con "_" (_herramientas, _originales): no son parte del sitio.
-RedirectMatch 404 /_[^/]+(/|$)
-
-# Archivos internos del proyecto.
-<FilesMatch "^(\.htaccess|\.gitignore|CLAUDE\.md|CLAUDE\.local\.md|README\.md)$">
-  Require all denied
-</FilesMatch>

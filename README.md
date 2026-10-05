@@ -12,6 +12,9 @@ Todas las imágenes se publican sin metadatos (ubicación, cámara, autor, etc.)
 python _herramientas/metadatos.py --limpiar
 ```
 
+## Al cambiar los estilos
+Cada vez que se modifica `styles.css`, actualizar la fecha en `index.html` (`styles.css?v=AAAAMMDD`). Así los navegadores descargan el CSS nuevo en lugar de usar el guardado.
+
 ## Estructura
 - `index.html` y `styles.css`: el sitio (HTML y CSS, sin JavaScript).
 - `img/` y `fuentes/`: imágenes y la fuente Inter (licencia en `fuentes/OFL-inter.txt`).
