@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Salvador Casas | Analista Funcional &amp; Tester</title>
+  <meta name="description" content="Salvador Casas, Analista Funcional y Tester en Córdoba, Argentina. Automatización conversacional, relevamiento de requerimientos y QA.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2338BDF8'/%3E%3Cstop offset='1' stop-color='%231E6FD9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Ctext x='32' y='42' font-family='Arial,sans-serif' font-size='28' font-weight='700' fill='white' text-anchor='middle'%3ESC%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <a href="#contenido" class="saltar-contenido">Saltar al contenido</a>
+
+  <!-- ===================== CABECERA ===================== -->
+  <header class="header">
+    <div class="contenedor header__contenido">
+      <a href="#inicio" class="marca" aria-label="Salvador Casas - Ir al inicio">
+        <svg class="logo" viewBox="0 0 64 64" aria-hidden="true">
+          <defs>
+            <linearGradient id="logo-degradado" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#38BDF8"/>
+              <stop offset="1" stop-color="#1E6FD9"/>
+            </linearGradient>
+          </defs>
+          <rect width="64" height="64" rx="16" fill="url(#logo-degradado)"/>
+          <text x="32" y="42" text-anchor="middle" class="logo__texto">SC</text>
+        </svg>
+        <span class="marca__texto">
+          <span class="marca__nombre">Salvador Casas</span>
+          <span class="marca__rol">Analista Funcional &amp; Tester</span>
+        </span>
+      </a>
+
+      <!-- Menú móvil (el orden del código coincide con el orden visual y de tabulación) -->
+      <input type="checkbox" id="menu" class="oculto-accesible" aria-label="Menú de navegación" aria-controls="navegacion">
+      <label for="menu" class="boton-icono hamburguesa" title="Menú de navegación">
+        <span></span><span></span><span></span>
+      </label>
+
+      <nav id="navegacion" class="nav" aria-label="Navegación principal">
+        <a href="#sobre-mi">Sobre mí</a>
+        <a href="#tecnologias">Tecnologías</a>
+        <a href="#estudios">Estudios</a>
+        <a href="#experiencia">Experiencia</a>
+        <a href="#contacto" class="nav__cta">Contacto</a>
+      </nav>
+
+      <!-- Interruptor de modo claro / oscuro -->
+      <input type="checkbox" id="tema" class="oculto-accesible" aria-label="Cambiar entre modo claro y oscuro">
+      <label for="tema" class="boton-icono" title="Cambiar entre modo claro y oscuro">
+        <svg class="icono-luna" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="icono-sol" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v2.5M12 20v2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M1.5 12H4M20 12h2.5M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg>
+      </label>
+    </div>
+  </header>
+
+  <main id="contenido" tabindex="-1">
+
+    <!-- ===================== HERO ===================== -->
+    <section id="inicio" class="hero">
+      <div class="contenedor hero__contenido">
+        <p class="etiqueta">Disponible para nuevos proyectos</p>
+        <h1 class="hero__titulo">
+          Hola, soy <span class="degradado">Salvador Casas</span>
+        </h1>
+        <p class="hero__subtitulo">
+          Analista Funcional especializado en automatización conversacional. Transformo las necesidades
+          del negocio en bots efectivos y me aseguro, con mi experiencia en QA, de que funcionen como se espera.
+        </p>
+        <div class="hero__botones">
+          <a href="#contacto" class="boton boton--primario">Contactame</a>
+          <a href="#experiencia" class="boton boton--secundario">Ver experiencia</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SOBRE MÍ ===================== -->
+    <section id="sobre-mi" class="seccion">
+      <div class="contenedor">
+        <h2 class="seccion__titulo">Sobre mí</h2>
+        <div class="sobre-mi">
+          <div class="sobre-mi__avatar" aria-hidden="true">SC</div>
+          <div class="sobre-mi__texto">
+            <p>
+              Soy Analista Funcional especializado en proyectos de automatización conversacional, con base en
+              Córdoba, Argentina. Cuento con amplia experiencia en la recopilación y documentación de requerimientos,
+              el análisis de procesos y la coordinación con el cliente para desarrollar bots efectivos y alineados
+              con las necesidades del negocio.
+            </p>
+            <p>
+              Mi experiencia en QA complementa mi enfoque analítico y me permite asegurar la calidad y la
+              optimización en cada etapa del desarrollo. Además, mi paso por el desarrollo frontend me da
+              una visión técnica que facilita la comunicación con los equipos.
+            </p>
+          </div>
+        </div>
+
+        <div class="grilla grilla--3">
+          <article class="tarjeta">
+            <div class="tarjeta__icono" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2M9 12h6M9 16h4"/></svg>
+            </div>
+            <h3>Análisis funcional</h3>
+            <p>Relevamiento de requerimientos, análisis de procesos y documentación funcional y técnica.</p>
+          </article>
+          <article class="tarjeta">
+            <div class="tarjeta__icono" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M12 3l7 4v5c0 4.5-3 8-7 9-4-1-7-4.5-7-9V7l7-4z"/></svg>
+            </div>
+            <h3>Testing &amp; QA</h3>
+            <p>Diseño, ejecución y evidencia de casos de prueba. Pruebas funcionales, de regresión, integración y exploratorias.</p>
+          </article>
+          <article class="tarjeta">
+            <div class="tarjeta__icono" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 0 0-5.4-1.8M17 20H7m10 0v-2c0-.7-.1-1.3-.4-1.8M7 20H2v-2a3 3 0 0 1 5.4-1.8M7 20v-2c0-.7.1-1.3.4-1.8m0 0a5 5 0 0 1 9.2 0M15 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/></svg>
+            </div>
+            <h3>Bots y CRM</h3>
+            <p>Automatización conversacional con Botmaker, integración con SuiteCRM y capacitación de clientes.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== TECNOLOGÍAS ===================== -->
+    <section id="tecnologias" class="seccion seccion--alt">
+      <div class="contenedor">
+        <h2 class="seccion__titulo">Tecnologías</h2>
+        <div class="grilla grilla--3">
+          <article class="tarjeta">
+            <h3>Automatización y CRM</h3>
+            <ul class="chips">
+              <li>Botmaker</li>
+              <li>SuiteCRM</li>
+              <li>Scrum</li>
+            </ul>
+          </article>
+          <article class="tarjeta">
+            <h3>Testing</h3>
+            <ul class="chips">
+              <li>Postman</li>
+              <li>Playwright</li>
+            </ul>
+          </article>
+          <article class="tarjeta">
+            <h3>Desarrollo y datos</h3>
+            <ul class="chips">
+              <li>JavaScript</li>
+              <li>PostgreSQL</li>
+              <li>DBeaver</li>
+              <li>Git</li>
+              <li>GitLab</li>
+              <li>Visual Studio Code</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="grilla grilla--2">
+          <article class="tarjeta">
+            <h3>Habilidades blandas</h3>
+            <ul class="chips">
+              <li>Trabajo en equipo</li>
+              <li>Pensamiento analítico</li>
+              <li>Ética profesional</li>
+              <li>Autoaprendizaje</li>
+              <li>Atención al detalle</li>
+              <li>Comunicación clara y efectiva</li>
+            </ul>
+          </article>
+          <article class="tarjeta">
+            <h3>Idiomas</h3>
+            <ul class="chips">
+              <li>Español · Nativo</li>
+              <li>Inglés · Básico</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== ESTUDIOS ===================== -->
+    <section id="estudios" class="seccion">
+      <div class="contenedor">
+        <h2 class="seccion__titulo">Estudios</h2>
+        <div class="grilla grilla--2">
+          <article class="tarjeta estudio">
+            <span class="estudio__periodo">2021 – 2023</span>
+            <h3>Técnico Superior en Desarrollo Web y Aplicaciones Digitales</h3>
+            <p class="estudio__institucion">Instituto Superior Politécnico Córdoba</p>
+          </article>
+          <article class="tarjeta estudio">
+            <span class="estudio__periodo">2017 – 2020</span>
+            <h3>Analista en Computación</h3>
+            <p class="estudio__institucion">FAMAF · Universidad Nacional de Córdoba</p>
+            <p>Primer año de la carrera completado.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== EXPERIENCIA ===================== -->
+    <section id="experiencia" class="seccion seccion--alt">
+      <div class="contenedor">
+        <h2 class="seccion__titulo">Experiencia</h2>
+        <ol class="timeline">
+          <li class="timeline__item">
+            <span class="timeline__periodo">Febrero 2025 – Actualidad</span>
+            <h3>Analista Funcional</h3>
+            <p class="timeline__empresa">Kunan SA</p>
+            <p class="timeline__resumen">
+              Relevo las necesidades del cliente en proyectos de automatización conversacional con Botmaker,
+              integración con SuiteCRM y capacitación de clientes en ambas plataformas.
+            </p>
+            <ul>
+              <li>Relevo requerimientos y coordino la integración entre bots y CRM.</li>
+              <li>Elaboro y mantengo la documentación funcional y técnica.</li>
+              <li>Capacito a clientes para asegurar el correcto uso de las plataformas.</li>
+              <li>Colaboro con el área comercial para captar y fidelizar nuevos clientes.</li>
+            </ul>
+          </li>
+          <li class="timeline__item">
+            <span class="timeline__periodo">Agosto 2023 – Enero 2025</span>
+            <h3>QA Manual</h3>
+            <p class="timeline__empresa">Kunan SA</p>
+            <p class="timeline__resumen">
+              Participé en reuniones con el cliente aportando una visión de calidad desde las etapas tempranas
+              del desarrollo. Contribuí a optimizar las suites de pruebas del chatbot “Merlin” y cooperé en la
+              búsqueda de potenciales clientes.
+            </p>
+            <ul>
+              <li>Trabajé bajo metodología Scrum.</li>
+              <li>Diseñé, ejecuté y evidencié casos de prueba.</li>
+              <li>Realicé pruebas funcionales, no funcionales, de regresión, integración, smoke y exploratorias.</li>
+              <li>Identifiqué, documenté y clasifiqué errores.</li>
+              <li>Creé manuales de usuario y realicé demostraciones de software a clientes.</li>
+            </ul>
+          </li>
+          <li class="timeline__item">
+            <span class="timeline__periodo">Julio 2022 – Julio 2023</span>
+            <h3>Desarrollador Frontend</h3>
+            <p class="timeline__empresa">Kunan SA</p>
+            <p class="timeline__resumen">
+              Desarrollé interfaces web como parte del Programa PIL Fullstack del Gobierno de Córdoba.
+            </p>
+            <ul>
+              <li>Diseñé y desarrollé el front de páginas web.</li>
+              <li>Creé y actualicé la documentación.</li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===================== CONTACTO ===================== -->
+    <section id="contacto" class="seccion">
+      <div class="contenedor contacto">
+        <div class="contacto__intro">
+          <h2 class="seccion__titulo">Contacto</h2>
+          <p>
+            ¿Necesitás un análisis funcional o testing para tu proyecto?
+            Escribime y te respondo a la brevedad.
+          </p>
+          <p class="contacto__mail">
+            <a href="mailto:contacto@salvadorcasas.com.ar">contacto@salvadorcasas.com.ar</a>
+          </p>
+          <p class="contacto__dato"><span aria-hidden="true">📍 </span>Córdoba Capital, Argentina</p>
+        </div>
+
+        <form class="formulario tarjeta" action="https://formsubmit.co/contacto@salvadorcasas.com.ar" method="POST">
+          <input type="hidden" name="_subject" value="Nueva consulta desde salvadorcasas.com.ar">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="text" name="_honey" class="campo-trampa" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+          <div class="campo">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" autocomplete="name" required>
+          </div>
+          <div class="campo">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="tu@email.com" autocomplete="email" required>
+          </div>
+          <div class="campo">
+            <label for="servicio">Servicio de interés</label>
+            <select id="servicio" name="servicio" required>
+              <option value="" disabled selected>Elegí una opción</option>
+              <option>Análisis funcional</option>
+              <option>Testing / QA</option>
+              <option>Consultoría</option>
+              <option>Otro</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" name="mensaje" rows="5" placeholder="Contame sobre tu proyecto..." required></textarea>
+          </div>
+          <button type="submit" class="boton boton--primario boton--ancho">Enviar consulta</button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== PIE ===================== -->
+  <footer class="footer">
+    <div class="contenedor footer__contenido">
+      <p>© 2026 Salvador Casas. Todos los derechos reservados.</p>
+      <div class="footer__enlaces">
+        <a href="https://www.linkedin.com/in/salvador-casas" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (se abre en una pestaña nueva)">LinkedIn</a>
+        <a href="mailto:contacto@salvadorcasas.com.ar">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================== WHATSAPP ===================== -->
+  <!-- Número en formato internacional: 54 (Argentina) + 9 (móvil) + 351 6983776 -->
+  <a class="whatsapp"
+     href="https://wa.me/5493516983776?text=Hola%20Salvador%2C%20quisiera%20consultarte%20por%20tus%20servicios"
+     target="_blank" rel="noopener noreferrer" aria-label="Chatear por WhatsApp (se abre en una pestaña nueva)">
+    <span class="whatsapp__tooltip">¡Chateemos!</span>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+  </a>
+
+</body>
+</html>

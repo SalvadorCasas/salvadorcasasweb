@@ -1,0 +1,9 @@
+# Archivos personales de Claude Code (no se comparten)
+CLAUDE.local.md
+.claude/settings.local.json
+
+# Sistema operativo y editor
+Thumbs.db
+Desktop.ini
+.DS_Store
+.vscode/
