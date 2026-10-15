@@ -17,6 +17,6 @@ Cada vez que se modifica `styles.css`, actualizar la fecha en `index.html` (`sty
 
 ## Estructura
 - `index.html` y `styles.css`: el sitio (HTML y CSS, sin JavaScript).
-- `img/` y `fuentes/`: imágenes y la fuente Inter (licencia en `fuentes/OFL-inter.txt`).
+- `img/` y `fuentes/`: imágenes (logo e íconos de marca en `img/marca/`) y la fuente Inter (licencia en `fuentes/OFL-inter.txt`).
 - `.htaccess`: HTTPS y cabeceras de seguridad para el hosting.
 - `_herramientas/`: herramientas de desarrollo; no forman parte del sitio.

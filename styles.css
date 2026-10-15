@@ -23,13 +23,17 @@
   --azul: #1E6FD9;
   --azul-profundo: #1A4FA3;
   --celeste: #38BDF8;
+  --celeste-claro: #7DD3FC;
   --blanco: #FFFFFF;
+  --linea-sobre-oscuro: rgba(255, 255, 255, 0.2);
   --verde-whatsapp: #1A9E50;
 
   /* Degradado decorativo (logo, iconos, líneas) */
   --degradado: linear-gradient(135deg, var(--celeste), var(--azul));
   /* Degradado de botones: contraste ≥ 4.5:1 con texto blanco */
   --degradado-boton: linear-gradient(135deg, var(--azul), var(--azul-profundo));
+  /* Degradado de marca (identidad visual): barras y líneas decorativas */
+  --degradado-marca: linear-gradient(90deg, var(--celeste), var(--azul), var(--azul-profundo));
 
   --sombra-acento: rgba(30, 111, 217, 0.35);
   --sombra-acento-fuerte: rgba(30, 111, 217, 0.45);
@@ -46,81 +50,107 @@
    El interruptor (#tema) invierte el tema del sistema. */
 :root {
   color-scheme: light;
-  --bg: #F8FAFC;
-  --bg-alt: #EEF2F7;
+  --bg: #E4ECF7;
+  --bg-alt: #D6E2F2;
+  --bg-3: #E4ECF7;
   --superficie: #FFFFFF;
   --texto: #0B1B2E;
-  --texto-suave: #4B5563;
+  --texto-suave: #334155;
   --borde: #DCE3EC;
   --borde-control: #64748B;
-  --acento: #1A5FBF;
+  --divisor: rgba(11, 27, 46, 0.16);
+  --punto: rgba(11, 27, 46, 0.22);
+  --anillo: rgba(30, 111, 217, 0.18);
+  --acento: #163C82;
   --degradado-texto: linear-gradient(135deg, var(--azul), var(--azul-profundo));
   --sombra: 0 10px 30px rgba(11, 27, 46, 0.08);
-  --header-bg: rgba(248, 250, 252, 0.85);
-  /* Brillos de fondo: más suaves en claro para que el acento mantenga ≥ 4.5:1 */
-  --brillo-azul: rgba(30, 111, 217, 0.10);
-  --brillo-celeste: rgba(56, 189, 248, 0.07);
+  --header-bg: rgba(228, 236, 247, 0.85);
+  /* Modo claro con fondo azulado y brillos notorios. Para mantener el contraste,
+     el texto suave y el acento son más oscuros. Peor caso de texto: 5.50:1 */
+  --brillo-azul: rgba(30, 111, 217, 0.30);
+  --brillo-celeste: rgba(56, 189, 248, 0.48);
   --ver-luna: block;
   --ver-sol: none;
+  --ver-tema-claro: block;
+  --ver-tema-oscuro: none;
 }
 
 :root:has(#tema:checked) {
   color-scheme: dark;
   --bg: #0B1B2E;
-  --bg-alt: #111827;
+  --bg-alt: #0F223A;
+  --bg-3: #0D2342;
   --superficie: #13243A;
   --texto: #E5E7EB;
   --texto-suave: #9CA3AF;
   --borde: #22364F;
   --borde-control: #71839B;
+  --divisor: rgba(229, 231, 235, 0.16);
+  --punto: rgba(229, 231, 235, 0.16);
+  --anillo: rgba(56, 189, 248, 0.20);
   --acento: #38BDF8;
-  --degradado-texto: linear-gradient(135deg, var(--celeste), var(--azul));
+  --degradado-texto: linear-gradient(135deg, var(--celeste-claro), var(--celeste));
   --sombra: 0 10px 30px rgba(0, 0, 0, 0.35);
   --header-bg: rgba(11, 27, 46, 0.85);
-  --brillo-azul: rgba(30, 111, 217, 0.16);
-  --brillo-celeste: rgba(56, 189, 248, 0.09);
+  --brillo-azul: rgba(30, 111, 217, 0.22);
+  --brillo-celeste: rgba(56, 189, 248, 0.12);
   --ver-luna: none;
   --ver-sol: block;
+  --ver-tema-claro: none;
+  --ver-tema-oscuro: block;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     color-scheme: dark;
     --bg: #0B1B2E;
-    --bg-alt: #111827;
+    --bg-alt: #0F223A;
+    --bg-3: #0D2342;
     --superficie: #13243A;
     --texto: #E5E7EB;
     --texto-suave: #9CA3AF;
     --borde: #22364F;
     --borde-control: #71839B;
+    --divisor: rgba(229, 231, 235, 0.16);
+    --punto: rgba(229, 231, 235, 0.16);
+    --anillo: rgba(56, 189, 248, 0.20);
     --acento: #38BDF8;
-    --degradado-texto: linear-gradient(135deg, var(--celeste), var(--azul));
+    --degradado-texto: linear-gradient(135deg, var(--celeste-claro), var(--celeste));
     --sombra: 0 10px 30px rgba(0, 0, 0, 0.35);
     --header-bg: rgba(11, 27, 46, 0.85);
-    --brillo-azul: rgba(30, 111, 217, 0.16);
-    --brillo-celeste: rgba(56, 189, 248, 0.09);
+    --brillo-azul: rgba(30, 111, 217, 0.22);
+    --brillo-celeste: rgba(56, 189, 248, 0.12);
     --ver-luna: none;
     --ver-sol: block;
+    --ver-tema-claro: none;
+    --ver-tema-oscuro: block;
   }
 
   :root:has(#tema:checked) {
     color-scheme: light;
-    --bg: #F8FAFC;
-    --bg-alt: #EEF2F7;
+    --bg: #E4ECF7;
+    --bg-alt: #D6E2F2;
+    --bg-3: #E4ECF7;
     --superficie: #FFFFFF;
     --texto: #0B1B2E;
-    --texto-suave: #4B5563;
+    --texto-suave: #334155;
     --borde: #DCE3EC;
     --borde-control: #64748B;
-    --acento: #1A5FBF;
+    --divisor: rgba(11, 27, 46, 0.16);
+    --punto: rgba(11, 27, 46, 0.22);
+    --anillo: rgba(30, 111, 217, 0.18);
+    --acento: #163C82;
     --degradado-texto: linear-gradient(135deg, var(--azul), var(--azul-profundo));
     --sombra: 0 10px 30px rgba(11, 27, 46, 0.08);
-    --header-bg: rgba(248, 250, 252, 0.85);
-    /* Brillos de fondo: más suaves en claro para que el acento mantenga ≥ 4.5:1 */
-    --brillo-azul: rgba(30, 111, 217, 0.10);
-    --brillo-celeste: rgba(56, 189, 248, 0.07);
+    --header-bg: rgba(228, 236, 247, 0.85);
+    /* Modo claro con fondo azulado y brillos notorios. Para mantener el contraste,
+     el texto suave y el acento son más oscuros. Peor caso de texto: 5.50:1 */
+    --brillo-azul: rgba(30, 111, 217, 0.30);
+    --brillo-celeste: rgba(56, 189, 248, 0.48);
     --ver-luna: block;
     --ver-sol: none;
+    --ver-tema-claro: block;
+    --ver-tema-oscuro: none;
   }
 }
 
@@ -136,7 +166,7 @@
 html {
   scroll-behavior: smooth;
   /* Evita que el header fijo o el botón de WhatsApp tapen el elemento con foco (WCAG 2.4.11) */
-  scroll-padding-top: calc(var(--alto-header) + 1rem);
+  scroll-padding-top: var(--alto-header);
   scroll-padding-bottom: 6rem;
 }
 
@@ -222,6 +252,8 @@ main:focus {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  /* En un flex el espacio entre el texto y la flecha se pierde: se separa con gap */
+  gap: 0.4rem;
   min-height: 2.75rem;
   padding: 0.85rem 1.6rem;
   border-radius: 999px;
@@ -328,6 +360,22 @@ main:focus {
   height: 2.75rem;
   flex-shrink: 0;
   filter: drop-shadow(0 4px 10px var(--sombra-acento));
+  transition: transform var(--transicion);
+}
+
+/* El ícono gira un poco y el nombre toma el color de acento */
+.marca:hover .logo,
+.marca:focus-visible .logo {
+  transform: rotate(-8deg) scale(1.08);
+}
+
+.marca__nombre {
+  transition: color var(--transicion);
+}
+
+.marca:hover .marca__nombre,
+.marca:focus-visible .marca__nombre {
+  color: var(--acento);
 }
 
 .marca__texto {
@@ -423,6 +471,12 @@ main:focus {
   background: var(--degradado-boton);
   color: var(--blanco);
   border-radius: 999px;
+  transition: transform var(--transicion), box-shadow var(--transicion);
+}
+
+.nav a.nav__cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px var(--sombra-acento-fuerte);
 }
 
 /* ---------- Hero ---------- */
@@ -467,17 +521,18 @@ main:focus {
   max-width: 52rem;
 }
 
-.etiqueta {
-  display: inline-block;
-  padding: 0.4rem 1rem;
-  border-radius: 999px;
-  border: 1px solid var(--borde);
-  background: var(--superficie);
-  color: var(--acento);
-  font-size: 0.85rem;
-  font-weight: 600;
-  margin-bottom: 1.5rem;
+/* Trama de puntos decorativa; la máscara la hace visible solo hacia la derecha */
+.hero__trama {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: radial-gradient(var(--punto) 1.2px, transparent 1.2px);
+  background-size: 1.75rem 1.75rem;
+  -webkit-mask-image: radial-gradient(ellipse 60% 70% at 78% 45%, var(--blanco), transparent 75%);
+  mask-image: radial-gradient(ellipse 60% 70% at 78% 45%, var(--blanco), transparent 75%);
+  pointer-events: none;
 }
+
 
 .hero__titulo {
   font-size: clamp(2.3rem, 7vw, 4.2rem);
@@ -499,6 +554,47 @@ main:focus {
   gap: 1rem;
 }
 
+.hero__grilla {
+  display: grid;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* Tres puntos de confianza debajo de los botones */
+.hero__puntos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin-top: 2rem;
+  font-size: 0.95rem;
+  color: var(--texto-suave);
+}
+
+.hero__puntos li {
+  position: relative;
+  padding-left: 1.4rem;
+}
+
+.hero__puntos li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  font-weight: 700;
+  color: var(--acento);
+}
+
+/* Logo 3D grande: decorativo, solo en escritorio */
+.hero__marca {
+  display: none;
+  justify-self: center;
+}
+
+.hero__logo {
+  width: clamp(16rem, 26vw, 23rem);
+  height: auto;
+  filter: drop-shadow(0 30px 40px var(--sombra-acento));
+}
+
 /* ---------- Secciones ---------- */
 .seccion {
   padding: 5rem 0;
@@ -509,18 +605,46 @@ main:focus {
   background: var(--bg-alt);
 }
 
+/* Trama de puntos sutil (como la del hero). Nace en una esquina de arriba (se ve en el cambio de sección), se alterna de lado y se desvanece */
+.seccion--puntos {
+  position: relative;
+  isolation: isolate;
+}
+
+.seccion--puntos::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: radial-gradient(var(--punto) 1.2px, transparent 1.2px);
+  background-size: 1.75rem 1.75rem;
+  -webkit-mask-image: radial-gradient(ellipse 60% 75% at 85% 0%, var(--blanco), transparent 85%);
+  mask-image: radial-gradient(ellipse 60% 75% at 85% 0%, var(--blanco), transparent 85%);
+  pointer-events: none;
+}
+
+.seccion--puntos:nth-of-type(odd)::before {
+  -webkit-mask-image: radial-gradient(ellipse 60% 75% at 15% 0%, var(--blanco), transparent 85%);
+  mask-image: radial-gradient(ellipse 60% 75% at 15% 0%, var(--blanco), transparent 85%);
+}
+
+/* Tercer tono: en oscuro es un azul más saturado, para que no todas las secciones tengan el mismo fondo */
+.seccion--tono-3 {
+  background: var(--bg-3);
+}
+
 /* Brillos suaves en dos esquinas opuestas; se alternan de lado en cada sección.
    Son solo degradados de fondo: no agregan elementos ni movimiento. */
 .seccion--brillo {
   background-image:
-    radial-gradient(ellipse 55% 50% at 0% 0%, var(--brillo-azul), transparent 70%),
-    radial-gradient(ellipse 45% 45% at 100% 100%, var(--brillo-celeste), transparent 70%);
+    radial-gradient(ellipse 70% 60% at 0% 0%, var(--brillo-azul), transparent 70%),
+    radial-gradient(ellipse 60% 55% at 100% 100%, var(--brillo-celeste), transparent 70%);
 }
 
 .seccion--brillo:nth-of-type(even) {
   background-image:
-    radial-gradient(ellipse 55% 50% at 100% 0%, var(--brillo-azul), transparent 70%),
-    radial-gradient(ellipse 45% 45% at 0% 100%, var(--brillo-celeste), transparent 70%);
+    radial-gradient(ellipse 70% 60% at 100% 0%, var(--brillo-azul), transparent 70%),
+    radial-gradient(ellipse 60% 55% at 0% 100%, var(--brillo-celeste), transparent 70%);
 }
 
 .seccion__titulo {
@@ -537,7 +661,34 @@ main:focus {
   height: 4px;
   margin-top: 0.75rem;
   border-radius: 4px;
-  background: var(--degradado);
+  background: var(--degradado-marca);
+}
+
+/* Antetítulo chico sobre el título (por ejemplo, "SERVICIOS") */
+.seccion__antetitulo {
+  margin-bottom: 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--acento);
+}
+
+/* Si el título tiene bajada, se acerca a ella */
+.seccion__titulo:has(+ .seccion__bajada) {
+  margin-bottom: 1.25rem;
+}
+
+.seccion__bajada {
+  max-width: 65ch;
+  margin-bottom: 2.5rem;
+  font-size: 1.08rem;
+  color: var(--texto-suave);
+}
+
+.seccion__subtitulo {
+  margin-bottom: 1.25rem;
+  font-size: 1.3rem;
 }
 
 .grilla {
@@ -572,7 +723,8 @@ main:focus {
   border-color: var(--acento);
 }
 
-.tarjeta h3 {
+.tarjeta h3,
+.tarjeta h4 {
   font-size: 1.15rem;
   margin-bottom: 0.6rem;
 }
@@ -609,7 +761,7 @@ main:focus {
   margin-bottom: 3rem;
 }
 
-/* Logo SC (img/sc-icono.svg). El radio coincide con las esquinas del SVG (22 %) para que la sombra siga su forma */
+/* Logo SC (img/marca/sc-icono.svg). El radio coincide con las esquinas del SVG (22 %) para que la sombra siga su forma */
 .sobre-mi__avatar {
   display: block;
   width: 10rem;
@@ -653,6 +805,33 @@ main:focus {
   transform: translateX(-50%) rotate(-8deg);
 }
 
+/* Franja de datos debajo de Sobre mí: tres cifras con el degradado del título, sin tarjetas */
+.datos {
+  display: grid;
+  gap: 1.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--divisor);
+}
+
+.datos__numero {
+  display: block;
+  font-size: clamp(2rem, 4vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  background: var(--degradado-texto);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.datos__texto {
+  display: block;
+  max-width: 24ch;
+  margin-top: 0.35rem;
+  color: var(--texto-suave);
+}
+
 /* ---------- Proyectos ---------- */
 /* auto-fill mantiene el ancho de columna aunque haya un solo proyecto */
 .grilla--proyectos {
@@ -673,6 +852,12 @@ main:focus {
   aspect-ratio: 16 / 10;
   object-fit: cover;
   border-bottom: 1px solid var(--borde);
+  transition: transform 0.5s ease;
+}
+
+.proyecto:hover .proyecto__imagen,
+.proyecto:focus-within .proyecto__imagen {
+  transform: scale(1.04);
 }
 
 .proyecto__cuerpo {
@@ -711,7 +896,7 @@ main:focus {
   text-underline-offset: 0.2em;
 }
 
-/* ---------- Tecnologías ---------- */
+/* ---------- Chips (etiquetas de tecnologías) ---------- */
 .chips {
   display: flex;
   flex-wrap: wrap;
@@ -729,6 +914,377 @@ main:focus {
   border: 1px solid var(--borde);
 }
 
+/* ---------- Servicios ---------- */
+.grilla--servicios {
+  grid-template-columns: repeat(auto-fit, minmax(min(22rem, 100%), 1fr));
+}
+
+.servicio {
+  scroll-margin-top: 1.5rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 1.5rem;
+  /* La lista de "Incluye" pasa a 2 columnas según el ancho de la tarjeta, no de la pantalla */
+  container-type: inline-size;
+}
+
+/* Ícono al lado de la etiqueta y el título: ahorra alto */
+.servicio__encabezado {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 0.75rem;
+}
+
+.tarjeta .servicio__encabezado h3 {
+  margin-bottom: 0;
+}
+
+/* Línea de marca que se dibuja arriba de la tarjeta al pasar el mouse o al navegar con teclado */
+.servicio::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: var(--degradado-marca);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transicion);
+}
+
+.servicio:hover::before,
+.servicio:focus-within::before {
+  transform: scaleX(1);
+}
+
+.servicio__icono {
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-bottom: 0;
+}
+
+.servicio__icono svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Mantenimiento: es un servicio que sigue después de publicar.
+   Se diferencia con borde punteado, fondo translúcido e ícono de contorno */
+.servicio--continuo {
+  border: 1px dashed var(--borde-control);
+  background: color-mix(in srgb, var(--superficie) 55%, transparent);
+  box-shadow: none;
+}
+
+.servicio--continuo .tarjeta__icono {
+  background: transparent;
+  border: 2px solid var(--acento);
+}
+
+.servicio--continuo .tarjeta__icono svg {
+  stroke: var(--acento);
+}
+
+.tarjeta .servicio__para {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.15rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--acento);
+}
+
+.servicio__distintivo {
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  background: var(--degradado-boton);
+  color: var(--blanco);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+}
+
+/* Tarjeta recomendada: oscura en degradado azul, en los dos temas.
+   Contraste: gris claro sobre azul profundo 6.30; celeste claro 4.68; blanco 7.80 */
+.servicio--destacado {
+  background: linear-gradient(160deg, var(--azul-profundo), var(--azul-oscuro));
+  border-color: var(--azul);
+  color: var(--blanco);
+  box-shadow: 0 20px 40px var(--sombra-acento);
+}
+
+.servicio--destacado p,
+.servicio--destacado .servicio__lista li {
+  color: var(--gris-claro);
+}
+
+.tarjeta.servicio--destacado .servicio__para,
+.servicio--destacado .servicio__lista li::before {
+  color: var(--celeste-claro);
+}
+
+.tarjeta.servicio--destacado .servicio__incluye {
+  color: var(--blanco);
+}
+
+.servicio--destacado .servicio__distintivo {
+  background: var(--blanco);
+  color: var(--azul-profundo);
+}
+
+.servicio--destacado .servicio__pie {
+  border-top-color: var(--linea-sobre-oscuro);
+}
+
+.servicio--destacado .servicio__enlace {
+  color: var(--blanco);
+}
+
+.servicio--destacado :focus-visible {
+  outline-color: var(--celeste-claro);
+}
+
+.tarjeta .servicio__incluye {
+  margin: 0.85rem 0 0.4rem;
+  font-weight: 600;
+  color: var(--texto);
+}
+
+.servicio__lista li {
+  position: relative;
+  padding-left: 1.5rem;
+  color: var(--texto-suave);
+}
+
+.servicio__lista li + li {
+  margin-top: 0.35rem;
+}
+
+@container (min-width: 26rem) {
+  .servicio__lista {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.35rem 1rem;
+  }
+
+  .servicio__lista li + li {
+    margin-top: 0;
+  }
+}
+
+.servicio__lista li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  font-weight: 700;
+  color: var(--acento);
+}
+
+/* El pie (condiciones y enlace) queda siempre abajo de la tarjeta */
+.servicio__pie {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--borde);
+}
+
+/* Separación entre el contenido y el pie */
+.servicio > :nth-last-child(2) {
+  margin-bottom: 1rem;
+}
+
+.tarjeta .servicio__condiciones {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--texto);
+}
+
+.servicio__enlace {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2.75rem;
+  margin-left: auto;
+  font-weight: 700;
+}
+
+.servicio__enlace:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.servicio__enlace span,
+.proyecto__enlace span {
+  display: inline-block;
+  transition: transform var(--transicion);
+}
+
+.servicio__enlace:hover span {
+  transform: translateX(3px);
+}
+
+.proyecto__enlace:hover span {
+  transform: translate(2px, -2px);
+}
+
+/* ---------- Cómo trabajo ----------
+   Recorrido de 5 pasos: vertical en celular y tablet, horizontal en escritorio.
+   Cada paso tiene un conector de marca hacia el siguiente, que se dibuja al llegar con el scroll. */
+.etapas {
+  display: grid;
+}
+
+.etapa {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.75rem 1fr;
+  /* Todo arriba: si no, los pasos con menos texto se estiran y los títulos quedan desparejos */
+  align-content: start;
+  gap: 1.25rem;
+  padding-bottom: 2rem;
+}
+
+.etapa:last-child {
+  padding-bottom: 0;
+}
+
+/* Conector vertical: del hexágono al siguiente paso */
+.etapa:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 3.4rem;
+  bottom: 0.2rem;
+  left: calc(1.375rem - 1px);
+  width: 2px;
+  border-radius: 2px;
+  background: var(--degradado-marca);
+  transform-origin: top;
+}
+
+/* Número dentro de un hexágono "parado", como el del logo */
+.etapa__numero {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 3.2rem;
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  background: var(--degradado-boton);
+  color: var(--blanco);
+  font-size: 1rem;
+  font-weight: 800;
+  transition: transform var(--transicion);
+}
+
+.etapa:hover .etapa__numero {
+  transform: rotate(-8deg) scale(1.1);
+}
+
+.etapa__cuerpo h3 {
+  margin-bottom: 0.6rem;
+  font-size: 1.1rem;
+  transition: color var(--transicion);
+}
+
+.etapa:hover .etapa__cuerpo h3 {
+  color: var(--acento);
+}
+
+.etapa__roles {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.etapa__roles div {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+
+.etapa__roles dt {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--acento);
+}
+
+.etapa__roles dd {
+  font-size: 0.92rem;
+  color: var(--texto-suave);
+}
+
+/* ---------- Cierres de Servicios y Cómo trabajo ---------- */
+/* Servicios: ayuda centrada y discreta */
+.ayuda {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  text-align: center;
+}
+
+.ayuda p {
+  max-width: 60ch;
+  color: var(--texto-suave);
+}
+
+.ayuda strong {
+  color: var(--texto);
+}
+
+/* Cómo trabajo: banda de llamado a la acción en degradado azul (blanco sobre azul: ≥ 4.85) */
+.banda-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  margin-top: 3rem;
+  padding: 2rem;
+  border-radius: var(--radio);
+  background: var(--degradado-boton);
+  color: var(--blanco);
+  box-shadow: 0 20px 40px var(--sombra-acento);
+}
+
+.banda-cta__texto {
+  max-width: 50ch;
+  font-size: 1.15rem;
+}
+
+.banda-cta__boton {
+  background: var(--blanco);
+  color: var(--azul-profundo);
+}
+
+.banda-cta :focus-visible {
+  outline-color: var(--blanco);
+}
+
+/* ---------- Trayectoria (Experiencia + Estudios) ---------- */
+.trayectoria {
+  display: grid;
+  gap: 3rem;
+}
+
+.trayectoria__estudios {
+  grid-template-columns: repeat(auto-fit, minmax(min(17.5rem, 100%), 1fr));
+}
+
 /* ---------- Estudios ---------- */
 .estudio {
   overflow: hidden;
@@ -742,15 +1298,20 @@ main:focus {
   min-height: 5.5rem;
   margin: -1.75rem -1.75rem 1.25rem;
   padding: 1rem 1.75rem;
-  background: var(--azul-oscuro);
+  background: linear-gradient(135deg, var(--azul-oscuro) 55%, var(--azul-profundo));
   border-bottom: 1px solid var(--borde);
 }
 
 .estudio__logo img {
+  transition: transform var(--transicion);
   display: block;
   width: auto;
   max-width: 100%;
   height: 3.5rem;
+}
+
+.estudio:hover .estudio__logo img {
+  transform: scale(1.06);
 }
 
 .estudio__periodo {
@@ -788,12 +1349,17 @@ main:focus {
 
 .timeline__item {
   position: relative;
+  transition: border-color var(--transicion), transform var(--transicion);
   background: var(--superficie);
   border: 1px solid var(--borde);
   border-radius: var(--radio);
   padding: 1.5rem 1.75rem;
   box-shadow: var(--sombra);
-  transition: background-color var(--transicion), border-color var(--transicion);
+}
+
+.timeline__item:hover {
+  border-color: var(--acento);
+  transform: translateX(4px);
 }
 
 .timeline__item + .timeline__item {
@@ -810,6 +1376,18 @@ main:focus {
   border-radius: 50%;
   background: var(--degradado);
   box-shadow: 0 0 0 4px var(--bg);
+  transition: transform var(--transicion), box-shadow var(--transicion);
+}
+
+/* Al pasar el mouse, el punto crece y se le suma un anillo de color */
+.timeline__item:hover::before {
+  transform: scale(1.2);
+  box-shadow: 0 0 0 4px var(--bg), 0 0 0 8px var(--anillo);
+}
+
+/* El puesto actual tiene su marca de color a la izquierda */
+.timeline__item:first-child {
+  border-left: 3px solid var(--acento);
 }
 
 .timeline__periodo {
@@ -818,7 +1396,7 @@ main:focus {
   color: var(--acento);
 }
 
-.timeline__item h3 {
+.timeline__item h4 {
   font-size: 1.2rem;
   margin: 0.25rem 0;
 }
@@ -856,6 +1434,10 @@ main:focus {
   color: var(--acento);
 }
 
+.seccion--alt .timeline__item::before {
+  box-shadow: 0 0 0 4px var(--bg-alt);
+}
+
 /* ---------- Contacto ---------- */
 .contacto {
   display: grid;
@@ -878,8 +1460,27 @@ main:focus {
   font-size: 1rem;
 }
 
+.formulario {
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--transicion), box-shadow var(--transicion);
+}
+
+.formulario::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  background: var(--degradado-marca);
+}
+
 .formulario:hover {
   transform: none;
+}
+
+.formulario:focus-within {
+  border-color: var(--acento);
+  box-shadow: var(--sombra), 0 0 0 4px var(--anillo);
 }
 
 .campo {
@@ -938,35 +1539,86 @@ main:focus {
 
 /* ---------- Footer ---------- */
 .footer {
-  padding: 2rem 0;
+  padding: 3.5rem 0 1.5rem;
   border-top: 1px solid var(--borde);
-  background: var(--bg-alt);
+  background: var(--bg-3);
   color: var(--texto-suave);
-  font-size: 0.9rem;
+  font-size: 0.92rem;
 }
 
-.footer__contenido {
+.footer__grilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(12rem, 100%), 1fr));
+  gap: 2rem;
+}
+
+.footer__marca {
   display: flex;
-  flex-direction: column;
   align-items: center;
   gap: 0.75rem;
-  text-align: center;
+  margin-bottom: 0.75rem;
 }
 
-.footer__enlaces {
+.footer__logo {
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+}
+
+.footer__nombre {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--texto);
+}
+
+.footer__descripcion {
+  max-width: 40ch;
+}
+
+.footer__titulo {
+  margin-bottom: 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--texto);
+}
+
+.footer__lista {
   display: flex;
-  gap: 1.5rem;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-style: normal;
 }
 
-.footer__enlaces a {
+.footer__lista a,
+.footer__arriba {
   display: inline-block;
-  padding: 0.25rem 0;
+  padding: 0.2rem 0;
   color: var(--texto-suave);
-  font-weight: 500;
+  transition: color var(--transicion);
 }
 
-.footer__enlaces a:hover {
+.footer__lista a:hover,
+.footer__arriba:hover {
   color: var(--acento);
+}
+
+.footer__base {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  /* Deja libre la esquina del botón flotante de WhatsApp */
+  padding-right: 5rem;
+  border-top: 1px solid var(--divisor);
+}
+
+.footer__arriba {
+  font-weight: 600;
 }
 
 /* ---------- WhatsApp flotante ---------- */
@@ -1040,8 +1692,37 @@ main:focus {
   }
 }
 
+/* ---------- Visibilidad por tema ----------
+   Para imágenes con una versión por tema (logo e ícono de marca).
+   Van al final para ganarle al display de cada componente. */
+.solo-tema-claro {
+  display: var(--ver-tema-claro);
+}
+
+.solo-tema-oscuro {
+  display: var(--ver-tema-oscuro);
+}
+
 /* ---------- Tablet ---------- */
 @media (min-width: 768px) {
+  /* Datos en tres columnas separadas por líneas finas */
+  .datos {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+
+  .datos__item {
+    padding: 0 1.5rem;
+  }
+
+  .datos__item:first-child {
+    padding-left: 0;
+  }
+
+  .datos__item + .datos__item {
+    border-left: 1px solid var(--divisor);
+  }
+
   .sobre-mi {
     grid-template-columns: auto 1fr;
     gap: 3rem;
@@ -1052,12 +1733,6 @@ main:focus {
     height: 12.5rem;
   }
 
-  .footer__contenido {
-    flex-direction: row;
-    justify-content: space-between;
-    /* Deja libre la esquina del botón flotante de WhatsApp para que no tape los links */
-    padding-right: 5.5rem;
-  }
 }
 
 /* ---------- Escritorio ---------- */
@@ -1083,19 +1758,151 @@ main:focus {
     visibility: visible;
   }
 
+  /* Sin cortar palabras, para que el menú entre en una línea desde 1024px */
   .nav a {
-    padding: 0.5rem 0.9rem;
+    padding: 0.5rem 0.75rem;
+    white-space: nowrap;
+  }
+
+  /* Cómo trabajo: recorrido horizontal de 5 pasos */
+  .etapas {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem;
+  }
+
+  .etapa {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding-bottom: 0;
+  }
+
+  /* Conector horizontal: del hexágono al hexágono de la columna siguiente */
+  .etapa:not(:last-child)::after {
+    top: calc(1.6rem - 1px);
+    bottom: auto;
+    left: 3.25rem;
+    right: -1rem;
+    width: auto;
+    height: 2px;
+    transform-origin: left;
+  }
+
+  .etapa__roles div {
+    grid-template-columns: 1fr;
+    gap: 0.1rem;
+  }
+
+  /* Hero en dos columnas: texto y logo 3D */
+  .hero__grilla {
+    grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr);
+    gap: 2.5rem;
+  }
+
+  /* Con el logo al costado, el título entra en una línea */
+  .hero__titulo {
+    font-size: clamp(2.6rem, 4vw, 3.2rem);
+  }
+
+  .hero__titulo .degradado {
+    white-space: nowrap;
+  }
+
+  .hero__marca {
+    display: block;
+  }
+
+  /* Línea de marca debajo de cada opción del menú al pasar el mouse */
+  .nav a:not(.nav__cta) {
+    position: relative;
+  }
+
+  .nav a:not(.nav__cta)::after {
+    content: "";
+    position: absolute;
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: 0.2rem;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--degradado-marca);
+    transform: scaleX(0);
+    transition: transform var(--transicion);
+  }
+
+  .nav a:not(.nav__cta):hover::after,
+  .nav a:not(.nav__cta):focus-visible::after {
+    transform: scaleX(1);
+  }
+
+  /* Experiencia más ancha; Estudios en una columna al costado */
+  .trayectoria {
+    grid-template-columns: 1.6fr 1fr;
+    align-items: start;
   }
 
   .nav a.nav__cta {
-    margin: 0 0 0 0.5rem;
+    margin: 0 0 0 0.35rem;
     padding: 0.55rem 1.3rem;
+  }
+
+  .footer__grilla {
+    grid-template-columns: 1.6fr 1fr 1fr 1fr;
   }
 
   .contacto {
     grid-template-columns: 1fr 1.3fr;
     gap: 4rem;
     align-items: start;
+  }
+}
+
+/* ---------- Animaciones de entrada ----------
+   Solo opacidad y desplazamiento, una sola vez. No se usan con movimiento reducido. */
+/* Usa "translate" (no "transform") para no pisar los efectos de hover que usan transform */
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    translate: 0 1rem;
+  }
+  to {
+    opacity: 1;
+    translate: none;
+  }
+}
+
+/* El conector crece desde el hexágono (vertical u horizontal según transform-origin) */
+@keyframes trazar {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Hero: los elementos entran escalonados al cargar la página */
+  .hero__contenido > * {
+    animation: aparecer 0.7s ease both;
+  }
+
+  .hero__contenido > :nth-child(2) { animation-delay: 0.08s; }
+  .hero__contenido > :nth-child(3) { animation-delay: 0.16s; }
+  .hero__contenido > :nth-child(4) { animation-delay: 0.24s; }
+
+  /* Bloques que aparecen al llegar con el scroll. Si el navegador no lo soporta, se ven normal */
+  @supports (animation-timeline: view()) {
+    .etapa:not(:last-child)::after {
+      animation: trazar linear both;
+      animation-timeline: view();
+      animation-range: entry 30% cover 40%;
+    }
+
+    .revelar {
+      animation: aparecer linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
   }
 }
 
@@ -1113,14 +1920,32 @@ main:focus {
   }
 }
 
+/* ---------- Más contraste (opción "Aumentar contraste" del sistema) ----------
+   Se redefinen los tokens en body para que le ganen a los de :root en todo el contenido. */
+@media (prefers-contrast: more) {
+  body {
+    --texto-suave: var(--texto);
+    --borde: var(--borde-control);
+    --divisor: var(--borde-control);
+  }
+
+  .firma-fondo,
+  .hero__trama,
+  .seccion--puntos::before {
+    display: none;
+  }
+}
+
 /* ---------- Alto contraste (Windows) ---------- */
 @media (forced-colors: active) {
   .boton,
   .boton-icono,
   .nav a.nav__cta,
   .whatsapp,
-  .etiqueta,
-  .chips li {
+  .chips li,
+  .servicio__distintivo,
+  .servicio--destacado,
+  .banda-cta {
     border: 2px solid ButtonText;
   }
 
@@ -1129,12 +1954,14 @@ main:focus {
     outline-color: Highlight;
   }
 
-  .degradado {
+  .degradado,
+  .datos__numero {
     background: none;
     color: CanvasText;
   }
 
   .hamburguesa span,
+  .etapa::after,
   .seccion__titulo::after,
   .timeline::before,
   .timeline__item::before {
@@ -1142,7 +1969,9 @@ main:focus {
   }
 
   .whatsapp::before,
-  .firma-fondo {
+  .firma-fondo,
+  .hero__trama,
+  .seccion--puntos::before {
     display: none;
   }
 }
