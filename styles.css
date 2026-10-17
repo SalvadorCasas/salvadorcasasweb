@@ -1580,8 +1580,23 @@ main:focus {
   background: color-mix(in srgb, var(--acento) 10%, transparent);
 }
 
+/* Se muestra 5 segundos, se desvanece y se quita (el formulario sube a su lugar) */
 .formulario__exito:target {
   display: flex;
+  animation: aviso-ocultar 0.6s ease 5s forwards;
+}
+
+@keyframes aviso-ocultar {
+  to {
+    opacity: 0;
+    display: none;
+  }
+}
+
+/* Al volver de FormSubmit (#enviado) el salto es directo: con el scroll suave, la página
+   se quedaba arriba porque el desplazamiento se cortaba mientras terminaba de cargar */
+html:has(.formulario__exito:target) {
+  scroll-behavior: auto;
 }
 
 /* Al llegar, el aviso queda un poco más abajo del header */
@@ -2262,6 +2277,7 @@ main:focus {
 
 /* ---------- Movimiento reducido ---------- */
 @media (prefers-reduced-motion: reduce) {
+  /* El botón "Volver arriba" y el aviso de envío siguen con su fundido: no es un movimiento */
   html {
     scroll-behavior: auto;
   }
@@ -2272,7 +2288,7 @@ main:focus {
     transition: none !important;
   }
 
-  *:not(.arriba, .arriba__boton),
+  *:not(.arriba, .arriba__boton, .formulario__exito),
   *::before,
   *::after {
     animation: none !important;
