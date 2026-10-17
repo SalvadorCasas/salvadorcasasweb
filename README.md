@@ -4,9 +4,10 @@ Sitio web de mi Perfil Profesional
 ## Cómo verlo
 Abrir `index.html` con la extensión **Live Server** de VS Code (o cualquier servidor http).
 Abriendo el archivo directo (`file://`), el navegador bloquea la fuente local y la consola muestra errores que no existen en el sitio publicado.
+Dos cosas solo funcionan en el sitio publicado: los botones de WhatsApp (`/whatsapp` lo redirige el servidor con `.htaccess`) y el aviso de envío correcto del formulario.
 
-## Antes de agregar imágenes
-Todas las imágenes se publican sin metadatos (ubicación, cámara, autor, etc.). Después de agregar una, correr:
+## Antes de agregar imágenes o PDF
+Todas las imágenes y PDF se publican sin metadatos (ubicación, cámara, autor, programa, etc.). Después de agregar uno, correr:
 
 ```
 python _herramientas/metadatos.py --limpiar
@@ -20,3 +21,6 @@ Cada vez que se modifica `styles.css`, actualizar la fecha en `index.html` (`sty
 - `img/` y `fuentes/`: imágenes (logo e íconos de marca en `img/marca/`) y la fuente Inter (licencia en `fuentes/OFL-inter.txt`).
 - `.htaccess`: HTTPS y cabeceras de seguridad para el hosting.
 - `_herramientas/`: herramientas de desarrollo; no forman parte del sitio.
+
+## Licencia
+© 2026 Salvador Casas. Todos los derechos reservados: ver [`LICENSE`](LICENSE).

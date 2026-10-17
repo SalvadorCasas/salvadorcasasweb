@@ -10,8 +10,9 @@ Uso (desde la carpeta del proyecto):
     python _herramientas/metadatos.py            -> solo revisa y muestra lo que encuentra
     python _herramientas/metadatos.py --limpiar  -> además lo borra (modifica los archivos)
 
-Formatos: PNG, WebP, JPEG y SVG. Quita solo los bloques de metadatos: la imagen
-no se vuelve a comprimir, así que no pierde calidad.
+Formatos: PNG, WebP, JPEG, SVG y PDF. Quita solo los bloques de metadatos: la imagen
+no se vuelve a comprimir, así que no pierde calidad. En los PDF tapa las propiedades
+del documento y el bloque XMP con espacios del mismo largo (el archivo sigue abriendo igual).
 No necesita instalar nada (solo Python 3).
 """
 
@@ -109,8 +110,50 @@ def revisar_svg(datos):
     return texto.encode("utf-8"), encontrados
 
 
+def _tapar(datos, inicio, fin):
+    """Reemplaza un tramo por espacios del mismo largo: las posiciones del índice del PDF no cambian."""
+    datos[inicio:fin] = b" " * (fin - inicio)
+
+
+def revisar_pdf(datos):
+    if not datos.startswith(b"%PDF-"):
+        return datos, ["no parece un PDF válido"]
+    if b"/ObjStm" in datos:
+        return datos, ["PDF con objetos comprimidos: limpiarlo con otra herramienta (por ejemplo, exiftool o qpdf)"]
+    salida, encontrados = bytearray(datos), []
+
+    # Propiedades del documento (/Info): autor, programa, título, palabras clave, fechas
+    for numero in set(re.findall(rb"/Info\s+(\d+)\s+0\s+R", datos)):
+        obj = re.search(rb"(?<!\d)" + numero + rb"\s+0\s+obj\s*<<", salida)
+        if not obj:
+            continue
+        fin = salida.index(b"endobj", obj.end())
+        cierre = salida.rindex(b">>", obj.end(), fin)
+        claves = re.findall(rb"/(\w+)", salida[obj.end():cierre])
+        if claves:
+            encontrados.append("propiedades del documento (" + ", ".join(c.decode() for c in claves) + ")")
+            _tapar(salida, obj.end(), cierre)
+
+    # Bloques XMP (/Type /Metadata): se vacía el objeto y se quitan las referencias
+    for obj in re.finditer(rb"(\d+)\s+0\s+obj\s*<<(?:(?!endobj).)*?/Type\s*/Metadata", bytes(salida), re.S):
+        numero = obj.group(1)
+        fin = salida.index(b"endobj", obj.end()) + len(b"endobj")
+        reemplazo = numero + b" 0 obj\n<<>>\nendobj"
+        salida[obj.start():fin] = reemplazo + b" " * (fin - obj.start() - len(reemplazo))
+        encontrados.append(f"bloque XMP (objeto {numero.decode()})")
+        for ref in re.finditer(rb"/Metadata\s+" + numero + rb"\s+0\s+R", bytes(salida)):
+            _tapar(salida, ref.start(), ref.end())
+
+    # Fotos JPEG dentro del PDF con EXIF u otros datos: se avisa (no se tocan)
+    for flujo in re.finditer(rb"/DCTDecode.*?stream\r?\n", datos, re.S):
+        _, internos = revisar_jpeg(datos[flujo.end():datos.index(b"endstream", flujo.end())])
+        if internos:
+            encontrados.append("foto con metadatos dentro del PDF (" + ", ".join(internos) + "): exportarla sin metadatos")
+    return bytes(salida), encontrados
+
+
 REVISORES = {".png": revisar_png, ".webp": revisar_webp, ".jpg": revisar_jpeg,
-             ".jpeg": revisar_jpeg, ".svg": revisar_svg}
+             ".jpeg": revisar_jpeg, ".svg": revisar_svg, ".pdf": revisar_pdf}
 SIN_SOPORTE = {".gif", ".avif", ".heic", ".tif", ".tiff", ".mp4", ".webm", ".mov"}
 
 

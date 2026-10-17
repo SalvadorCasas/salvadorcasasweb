@@ -6,6 +6,9 @@ CLAUDE.local.md
 # Originales sin procesar (pesados; solo se suben las versiones optimizadas)
 _originales/
 
+# CV con datos personales: se publica en el sitio, pero no en el repositorio público
+cv/
+
 # Sistema operativo y editor
 Thumbs.db
 Desktop.ini
