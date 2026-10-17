@@ -14,6 +14,17 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+/* Fuente de reemplazo con las medidas de Inter (Arial ajustada): si Inter tarda en llegar,
+   el texto ocupa el mismo espacio y la página no "salta" al cambiar de fuente (CLS) */
+@font-face {
+  font-family: "Inter respaldo";
+  src: local("Arial");
+  ascent-override: 90.49%;
+  descent-override: 22.56%;
+  line-gap-override: 0%;
+  size-adjust: 107.06%;
+}
+
 /* ---------- Paleta base (igual en ambos temas) ---------- */
 :root {
   --azul-oscuro: #0B1B2E;
@@ -50,21 +61,23 @@
    El interruptor (#tema) invierte el tema del sistema. */
 :root {
   color-scheme: light;
-  --bg: #E4ECF7;
-  --bg-alt: #D6E2F2;
-  --bg-3: #E4ECF7;
-  --superficie: #FFFFFF;
+  --bg: #DCE5F2;
+  --bg-alt: #CEDBEE;
+  --bg-3: #DCE5F2;
+  --superficie: #F4F7FB;
+  --fondo-medida: color-mix(in srgb, var(--celeste) 18%, var(--superficie));
   --texto: #0B1B2E;
   --texto-suave: #334155;
   --borde: #DCE3EC;
-  --borde-control: #64748B;
+  --borde-control: #5B7DAD;
+  --foco-campo: #1E6FD9;
   --divisor: rgba(11, 27, 46, 0.16);
   --punto: rgba(11, 27, 46, 0.22);
   --anillo: rgba(30, 111, 217, 0.18);
   --acento: #163C82;
   --degradado-texto: linear-gradient(135deg, var(--azul), var(--azul-profundo));
   --sombra: 0 10px 30px rgba(11, 27, 46, 0.08);
-  --header-bg: rgba(228, 236, 247, 0.85);
+  --header-bg: rgba(220, 229, 242, 0.85);
   /* Modo claro con fondo azulado y brillos notorios. Para mantener el contraste,
      el texto suave y el acento son más oscuros. Peor caso de texto: 5.50:1 */
   --brillo-azul: rgba(30, 111, 217, 0.30);
@@ -81,10 +94,12 @@
   --bg-alt: #0F223A;
   --bg-3: #0D2342;
   --superficie: #13243A;
+  --fondo-medida: color-mix(in srgb, var(--celeste) 8%, var(--superficie));
   --texto: #E5E7EB;
   --texto-suave: #9CA3AF;
   --borde: #22364F;
-  --borde-control: #71839B;
+  --borde-control: #4A7AB0;
+  --foco-campo: #38BDF8;
   --divisor: rgba(229, 231, 235, 0.16);
   --punto: rgba(229, 231, 235, 0.16);
   --anillo: rgba(56, 189, 248, 0.20);
@@ -107,10 +122,12 @@
     --bg-alt: #0F223A;
     --bg-3: #0D2342;
     --superficie: #13243A;
+    --fondo-medida: color-mix(in srgb, var(--celeste) 8%, var(--superficie));
     --texto: #E5E7EB;
     --texto-suave: #9CA3AF;
     --borde: #22364F;
-    --borde-control: #71839B;
+    --borde-control: #4A7AB0;
+    --foco-campo: #38BDF8;
     --divisor: rgba(229, 231, 235, 0.16);
     --punto: rgba(229, 231, 235, 0.16);
     --anillo: rgba(56, 189, 248, 0.20);
@@ -128,21 +145,23 @@
 
   :root:has(#tema:checked) {
     color-scheme: light;
-    --bg: #E4ECF7;
-    --bg-alt: #D6E2F2;
-    --bg-3: #E4ECF7;
-    --superficie: #FFFFFF;
+    --bg: #DCE5F2;
+    --bg-alt: #CEDBEE;
+    --bg-3: #DCE5F2;
+    --superficie: #F4F7FB;
+    --fondo-medida: color-mix(in srgb, var(--celeste) 18%, var(--superficie));
     --texto: #0B1B2E;
     --texto-suave: #334155;
     --borde: #DCE3EC;
-    --borde-control: #64748B;
+    --borde-control: #5B7DAD;
+    --foco-campo: #1E6FD9;
     --divisor: rgba(11, 27, 46, 0.16);
     --punto: rgba(11, 27, 46, 0.22);
     --anillo: rgba(30, 111, 217, 0.18);
     --acento: #163C82;
     --degradado-texto: linear-gradient(135deg, var(--azul), var(--azul-profundo));
     --sombra: 0 10px 30px rgba(11, 27, 46, 0.08);
-    --header-bg: rgba(228, 236, 247, 0.85);
+    --header-bg: rgba(220, 229, 242, 0.85);
     /* Modo claro con fondo azulado y brillos notorios. Para mantener el contraste,
      el texto suave y el acento son más oscuros. Peor caso de texto: 5.50:1 */
     --brillo-azul: rgba(30, 111, 217, 0.30);
@@ -167,11 +186,13 @@ html {
   scroll-behavior: smooth;
   /* Evita que el header fijo o el botón de WhatsApp tapen el elemento con foco (WCAG 2.4.11) */
   scroll-padding-top: var(--alto-header);
-  scroll-padding-bottom: 6rem;
+  scroll-padding-bottom: 9rem;
+  /* Barra de scroll: pulgar azul grisáceo sobre el fondo alternativo, en los dos temas */
+  scrollbar-color: var(--borde-control) var(--bg-alt);
 }
 
 body {
-  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-family: "Inter", "Inter respaldo", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   background: var(--bg);
   color: var(--texto);
   line-height: 1.65;
@@ -208,6 +229,12 @@ main:focus {
   max-width: var(--ancho-max);
   margin: 0 auto;
   padding: 0 1rem;
+}
+
+/* Columna centrada hasta escritorio: en celulares grandes y tablets el contenido
+   no queda pegado a la izquierda con un hueco a la derecha */
+.contenedor--angosto {
+  max-width: 38rem;
 }
 
 /* Oculta visualmente pero mantiene accesible por teclado/lectores */
@@ -466,7 +493,9 @@ main:focus {
 }
 
 .nav a.nav__cta {
+  align-self: flex-start;
   margin-top: 0.5rem;
+  padding: 0.6rem 1.5rem;
   text-align: center;
   background: var(--degradado-boton);
   color: var(--blanco);
@@ -513,7 +542,8 @@ main:focus {
   width: 22.5rem;
   height: 22.5rem;
   background: var(--azul);
-  bottom: -5rem;
+  /* Se apaga antes del borde inferior: el hero sigue sin corte hacia Sobre mí */
+  bottom: 9rem;
   left: -7.5rem;
 }
 
@@ -596,8 +626,14 @@ main:focus {
 }
 
 /* ---------- Secciones ---------- */
+/* Al llegar desde el menú, la sección "sube" 2.5rem: el título queda cerca del header
+   sin mostrar el final de la sección anterior */
+.seccion[id] {
+  scroll-margin-top: -2.5rem;
+}
+
 .seccion {
-  padding: 5rem 0;
+  padding: 3.5rem 0;
   transition: background-color var(--transicion);
 }
 
@@ -605,7 +641,7 @@ main:focus {
   background: var(--bg-alt);
 }
 
-/* Trama de puntos sutil (como la del hero). Nace en una esquina de arriba (se ve en el cambio de sección), se alterna de lado y se desvanece */
+/* Trama de puntos sutil en toda la sección (el inicio tiene la suya, solo a la derecha) */
 .seccion--puntos {
   position: relative;
   isolation: isolate;
@@ -618,14 +654,19 @@ main:focus {
   z-index: -1;
   background-image: radial-gradient(var(--punto) 1.2px, transparent 1.2px);
   background-size: 1.75rem 1.75rem;
-  -webkit-mask-image: radial-gradient(ellipse 60% 75% at 85% 0%, var(--blanco), transparent 85%);
-  mask-image: radial-gradient(ellipse 60% 75% at 85% 0%, var(--blanco), transparent 85%);
   pointer-events: none;
 }
 
-.seccion--puntos:nth-of-type(odd)::before {
+/* Variante del footer: los puntos nacen en la esquina de arriba a la izquierda y se desvanecen */
+.seccion--puntos-esquina::before {
   -webkit-mask-image: radial-gradient(ellipse 60% 75% at 15% 0%, var(--blanco), transparent 85%);
   mask-image: radial-gradient(ellipse 60% 75% at 15% 0%, var(--blanco), transparent 85%);
+}
+
+/* Sobre mí: los puntos aparecen de a poco debajo del inicio (que no tiene puntos a la izquierda) */
+.seccion--firma.seccion--puntos::before {
+  -webkit-mask-image: linear-gradient(transparent, var(--blanco) 6rem);
+  mask-image: linear-gradient(transparent, var(--blanco) 6rem);
 }
 
 /* Tercer tono: en oscuro es un azul más saturado, para que no todas las secciones tengan el mismo fondo */
@@ -635,16 +676,19 @@ main:focus {
 
 /* Brillos suaves en dos esquinas opuestas; se alternan de lado en cada sección.
    Son solo degradados de fondo: no agregan elementos ni movimiento. */
+/* La primera capa funde la sección con el fondo base arriba y abajo: así no se marcan líneas entre secciones */
 .seccion--brillo {
   background-image:
-    radial-gradient(ellipse 70% 60% at 0% 0%, var(--brillo-azul), transparent 70%),
-    radial-gradient(ellipse 60% 55% at 100% 100%, var(--brillo-celeste), transparent 70%);
+    linear-gradient(var(--bg), transparent 6rem, transparent calc(100% - 6rem), var(--bg)),
+    radial-gradient(ellipse 70% 45% at 0% 35%, var(--brillo-azul), transparent 70%),
+    radial-gradient(ellipse 60% 42% at 100% 68%, var(--brillo-celeste), transparent 70%);
 }
 
 .seccion--brillo:nth-of-type(even) {
   background-image:
-    radial-gradient(ellipse 70% 60% at 100% 0%, var(--brillo-azul), transparent 70%),
-    radial-gradient(ellipse 60% 55% at 0% 100%, var(--brillo-celeste), transparent 70%);
+    linear-gradient(var(--bg), transparent 6rem, transparent calc(100% - 6rem), var(--bg)),
+    radial-gradient(ellipse 70% 45% at 100% 35%, var(--brillo-azul), transparent 70%),
+    radial-gradient(ellipse 60% 42% at 0% 68%, var(--brillo-celeste), transparent 70%);
 }
 
 .seccion__titulo {
@@ -664,16 +708,6 @@ main:focus {
   background: var(--degradado-marca);
 }
 
-/* Antetítulo chico sobre el título (por ejemplo, "SERVICIOS") */
-.seccion__antetitulo {
-  margin-bottom: 0.75rem;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--acento);
-}
-
 /* Si el título tiene bajada, se acerca a ella */
 .seccion__titulo:has(+ .seccion__bajada) {
   margin-bottom: 1.25rem;
@@ -684,6 +718,11 @@ main:focus {
   margin-bottom: 2.5rem;
   font-size: 1.08rem;
   color: var(--texto-suave);
+}
+
+/* La frase que abre la bajada resalta con el color del texto principal */
+.seccion__bajada strong {
+  color: var(--texto);
 }
 
 .seccion__subtitulo {
@@ -754,24 +793,47 @@ main:focus {
 }
 
 /* ---------- Sobre mí ---------- */
+/* Ícono (o foto) con el botón del CV debajo; al lado, el texto desde tablet */
 .sobre-mi {
   display: grid;
   gap: 2rem;
-  align-items: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
-/* Logo SC (img/marca/sc-icono.svg). El radio coincide con las esquinas del SVG (22 %) para que la sombra siga su forma */
+.sobre-mi__lateral {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+/* Foto con fondo transparente: se ve sobre un azul apenas visible, con las esquinas del ícono (22 %) */
 .sobre-mi__avatar {
   display: block;
-  width: 10rem;
-  height: 10rem;
+  width: clamp(10rem, 30vw, 12.5rem);
+  height: clamp(10rem, 30vw, 12.5rem);
   border-radius: 22%;
+  object-fit: cover;
+  background: color-mix(in srgb, var(--azul) 18%, var(--superficie));
   box-shadow: 0 20px 40px var(--sombra-acento);
+}
+
+.sobre-mi__cv svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .sobre-mi__texto {
   max-width: 70ch;
+}
+
+.sobre-mi__texto p {
+  break-inside: avoid;
 }
 
 .sobre-mi__texto p {
@@ -797,25 +859,36 @@ main:focus {
   z-index: -1;
   top: 3rem;
   left: 50%;
-  width: min(62rem, 140%);
+  width: 90%;
   height: auto;
-  color: var(--texto);
-  opacity: 0.07;
+  /* Mismo tono que el texto al 7 % sobre el fondo, pero sólido: los puntos quedan detrás */
+  color: color-mix(in srgb, var(--texto) 7%, var(--bg));
   pointer-events: none;
   transform: translateX(-50%) rotate(-8deg);
+}
+
+/* Halo del color del fondo (se pinta detrás del relleno): los puntos no tocan la firma */
+.firma-fondo path {
+  stroke: var(--bg);
+  stroke-width: 18px;
+  stroke-linejoin: round;
+  paint-order: stroke;
+  vector-effect: non-scaling-stroke;
 }
 
 /* Franja de datos debajo de Sobre mí: tres cifras con el degradado del título, sin tarjetas */
 .datos {
   display: grid;
-  gap: 1.5rem;
-  padding-top: 2rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  padding-top: 1.25rem;
   border-top: 1px solid var(--divisor);
+  text-align: center;
 }
 
 .datos__numero {
   display: block;
-  font-size: clamp(2rem, 4vw, 2.6rem);
+  font-size: clamp(1.35rem, 6vw, 2.2rem);
   font-weight: 800;
   line-height: 1.1;
   letter-spacing: -0.02em;
@@ -827,20 +900,23 @@ main:focus {
 
 .datos__texto {
   display: block;
-  max-width: 24ch;
   margin-top: 0.35rem;
+  font-size: 0.8rem;
+  line-height: 1.4;
   color: var(--texto-suave);
 }
 
 /* ---------- Proyectos ---------- */
 /* auto-fill mantiene el ancho de columna aunque haya un solo proyecto */
 .grilla--proyectos {
-  grid-template-columns: repeat(auto-fill, minmax(min(20rem, 100%), 1fr));
+  grid-template-columns: 1fr;
+  container-type: inline-size;
 }
 
 .proyecto {
   display: flex;
   flex-direction: column;
+  max-width: 56rem;
   padding: 0;
   overflow: hidden;
 }
@@ -849,7 +925,7 @@ main:focus {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
   border-bottom: 1px solid var(--borde);
   transition: transform 0.5s ease;
@@ -864,7 +940,7 @@ main:focus {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  padding: 1.5rem 1.75rem 1.75rem;
+  padding: 1.25rem 1.5rem;
 }
 
 .proyecto__tipo {
@@ -896,6 +972,25 @@ main:focus {
   text-underline-offset: 0.2em;
 }
 
+/* Va después de los estilos base de la tarjeta para ganarles */
+/* Proyecto horizontal cuando la tarjeta tiene lugar: captura a la izquierda, texto a la derecha */
+@container (min-width: 34rem) {
+  .proyecto {
+    flex-direction: row;
+  }
+
+  .proyecto__imagen {
+    flex-shrink: 0;
+    align-self: stretch;
+    width: 42%;
+    height: auto;
+    aspect-ratio: auto;
+    object-position: left top;
+    border-bottom: 0;
+    border-right: 1px solid var(--borde);
+  }
+}
+
 /* ---------- Chips (etiquetas de tecnologías) ---------- */
 .chips {
   display: flex;
@@ -925,7 +1020,7 @@ main:focus {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  padding: 1.5rem;
+  padding: 1rem 1.25rem 0.35rem;
   /* La lista de "Incluye" pasa a 2 columnas según el ancho de la tarjeta, no de la pantalla */
   container-type: inline-size;
 }
@@ -934,8 +1029,15 @@ main:focus {
 .servicio__encabezado {
   display: flex;
   align-items: center;
-  gap: 0.9rem;
-  margin-bottom: 0.75rem;
+  gap: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.servicio__titulos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.6rem;
 }
 
 .tarjeta .servicio__encabezado h3 {
@@ -961,8 +1063,8 @@ main:focus {
 
 .servicio__icono {
   flex-shrink: 0;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.25rem;
+  height: 2.25rem;
   margin-bottom: 0;
 }
 
@@ -979,6 +1081,11 @@ main:focus {
   box-shadow: none;
 }
 
+/* A medida: fondo con un toque de celeste (Mantenimiento es translúcido y punteado) */
+.servicio--medida {
+  background: var(--fondo-medida);
+}
+
 .servicio--continuo .tarjeta__icono {
   background: transparent;
   border: 2px solid var(--acento);
@@ -988,26 +1095,15 @@ main:focus {
   stroke: var(--acento);
 }
 
-.tarjeta .servicio__para {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.15rem;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--acento);
-}
-
 .servicio__distintivo {
   padding: 0.2rem 0.65rem;
   border-radius: 999px;
   background: var(--degradado-boton);
   color: var(--blanco);
   font-size: 0.72rem;
+  font-weight: 700;
   letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 /* Tarjeta recomendada: oscura en degradado azul, en los dos temas.
@@ -1024,7 +1120,6 @@ main:focus {
   color: var(--gris-claro);
 }
 
-.tarjeta.servicio--destacado .servicio__para,
 .servicio--destacado .servicio__lista li::before {
   color: var(--celeste-claro);
 }
@@ -1051,7 +1146,7 @@ main:focus {
 }
 
 .tarjeta .servicio__incluye {
-  margin: 0.85rem 0 0.4rem;
+  margin: 0.55rem 0 0.25rem;
   font-weight: 600;
   color: var(--texto);
 }
@@ -1063,14 +1158,14 @@ main:focus {
 }
 
 .servicio__lista li + li {
-  margin-top: 0.35rem;
+  margin-top: 0.2rem;
 }
 
 @container (min-width: 26rem) {
   .servicio__lista {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0.35rem 1rem;
+    gap: 0.2rem 1rem;
   }
 
   .servicio__lista li + li {
@@ -1094,13 +1189,13 @@ main:focus {
   justify-content: space-between;
   gap: 0.75rem;
   margin-top: auto;
-  padding-top: 0.75rem;
+  padding-top: 0.25rem;
   border-top: 1px solid var(--borde);
 }
 
 /* Separación entre el contenido y el pie */
 .servicio > :nth-last-child(2) {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .tarjeta .servicio__condiciones {
@@ -1113,7 +1208,7 @@ main:focus {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  min-height: 2.75rem;
+  min-height: 2.5rem;
   margin-left: auto;
   font-weight: 700;
 }
@@ -1187,6 +1282,7 @@ main:focus {
   transition: transform var(--transicion);
 }
 
+/* Al pasar el mouse, el hexágono gira y el título toma el acento */
 .etapa:hover .etapa__numero {
   transform: rotate(-8deg) scale(1.1);
 }
@@ -1222,7 +1318,7 @@ main:focus {
 }
 
 .etapa__roles dd {
-  font-size: 0.92rem;
+  font-size: 1rem;
   color: var(--texto-suave);
 }
 
@@ -1252,21 +1348,30 @@ main:focus {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 1.25rem;
-  margin-top: 3rem;
-  padding: 2rem;
+  gap: 0.75rem 1rem;
+  max-width: 50rem;
+  margin: 2rem auto 0;
+  padding: 1.1rem 1.25rem;
   border-radius: var(--radio);
   background: var(--degradado-boton);
   color: var(--blanco);
   box-shadow: 0 20px 40px var(--sombra-acento);
+  transition: transform var(--transicion);
+}
+
+.banda-cta:hover {
+  transform: translateY(-4px);
 }
 
 .banda-cta__texto {
   max-width: 50ch;
-  font-size: 1.15rem;
+  font-size: 1rem;
 }
 
 .banda-cta__boton {
+  min-height: 2.5rem;
+  padding: 0.55rem 1.2rem;
+  font-size: 0.95rem;
   background: var(--blanco);
   color: var(--azul-profundo);
 }
@@ -1410,28 +1515,6 @@ main:focus {
 .timeline__resumen {
   max-width: 75ch;
   color: var(--texto);
-  margin-bottom: 0.9rem;
-}
-
-.timeline__item ul {
-  max-width: 75ch;
-}
-
-.timeline__item ul li {
-  position: relative;
-  padding-left: 1.25rem;
-  color: var(--texto-suave);
-}
-
-.timeline__item ul li + li {
-  margin-top: 0.35rem;
-}
-
-.timeline__item ul li::before {
-  content: "▹";
-  position: absolute;
-  left: 0;
-  color: var(--acento);
 }
 
 .seccion--alt .timeline__item::before {
@@ -1449,10 +1532,9 @@ main:focus {
   font-size: 1.08rem;
 }
 
-.contacto__mail {
+.contacto__enlace {
   margin-top: 1.25rem;
   font-weight: 600;
-  overflow-wrap: anywhere;
 }
 
 .contacto__intro .contacto__dato {
@@ -1461,6 +1543,8 @@ main:focus {
 }
 
 .formulario {
+  width: 100%;
+  padding: 1.5rem;
   position: relative;
   overflow: hidden;
   transition: border-color var(--transicion), box-shadow var(--transicion);
@@ -1474,6 +1558,7 @@ main:focus {
   background: var(--degradado-marca);
 }
 
+/* El formulario no se eleva: se completa sin que se mueva */
 .formulario:hover {
   transform: none;
 }
@@ -1483,11 +1568,48 @@ main:focus {
   box-shadow: var(--sombra), 0 0 0 4px var(--anillo);
 }
 
+.formulario__exito {
+  display: none;
+  gap: 0.75rem;
+  align-items: flex-start;
+  margin-bottom: 1.25rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--acento);
+  border-left-width: 4px;
+  border-radius: 0.6rem;
+  background: color-mix(in srgb, var(--acento) 10%, transparent);
+}
+
+.formulario__exito:target {
+  display: flex;
+}
+
+/* Al llegar, el aviso queda un poco más abajo del header */
+.formulario__exito {
+  scroll-margin-top: 2rem;
+}
+
+.formulario__exito svg {
+  flex-shrink: 0;
+  width: 1.4rem;
+  height: 1.4rem;
+  fill: none;
+  stroke: var(--acento);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.formulario__exito p {
+  margin: 0;
+  color: var(--texto);
+}
+
 .campo {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
-  margin-bottom: 1.25rem;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
 }
 
 .campo label {
@@ -1500,7 +1622,7 @@ main:focus {
 .campo textarea {
   width: 100%;
   min-height: 2.75rem;
-  padding: 0.85rem 1rem;
+  padding: 0.6rem 0.9rem;
   font: inherit;
   color: var(--texto);
   background: var(--bg);
@@ -1511,7 +1633,7 @@ main:focus {
 
 .campo textarea {
   resize: vertical;
-  min-height: 8rem;
+  min-height: 6rem;
 }
 
 .campo input::placeholder,
@@ -1520,14 +1642,22 @@ main:focus {
   opacity: 1;
 }
 
+/* Foco: un solo anillo grueso (borde + contorno pegados, del mismo color), sin la línea doble */
 .campo input:focus,
 .campo select:focus,
 .campo textarea:focus {
-  border-color: var(--acento);
+  border-color: var(--foco-campo);
+  outline: 2px solid var(--foco-campo);
+  outline-offset: 0;
 }
 
 .campo-trampa {
   display: none;
+}
+
+.formulario__aviso a {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
 }
 
 .tarjeta .formulario__aviso {
@@ -1539,9 +1669,8 @@ main:focus {
 
 /* ---------- Footer ---------- */
 .footer {
-  padding: 3.5rem 0 1.5rem;
-  border-top: 1px solid var(--borde);
-  background: var(--bg-3);
+  padding: 2.5rem 0 1rem;
+  background: var(--bg-3) linear-gradient(var(--bg), transparent 6rem);
   color: var(--texto-suave);
   font-size: 0.92rem;
 }
@@ -1549,7 +1678,7 @@ main:focus {
 .footer__grilla {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(12rem, 100%), 1fr));
-  gap: 2rem;
+  gap: 1.5rem 2rem;
 }
 
 .footer__marca {
@@ -1576,7 +1705,7 @@ main:focus {
 }
 
 .footer__titulo {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.4rem;
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -1587,7 +1716,7 @@ main:focus {
 .footer__lista {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0;
   font-style: normal;
 }
 
@@ -1604,14 +1733,68 @@ main:focus {
   color: var(--acento);
 }
 
+/* Política de privacidad: desplegable nativo (details/summary) */
+.privacidad {
+  margin-top: 1.5rem;
+}
+
+.privacidad summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  font-weight: 600;
+  color: var(--texto);
+  cursor: pointer;
+  list-style: none;
+}
+
+.privacidad summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Flecha que gira al abrir (el texto también cambia de estado para los lectores de pantalla) */
+.privacidad summary::before {
+  content: "▸";
+  color: var(--acento);
+  transition: transform var(--transicion);
+}
+
+.privacidad[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.privacidad summary:hover {
+  color: var(--acento);
+}
+
+.privacidad__contenido {
+  max-width: 75ch;
+  padding: 0.25rem 0 0.5rem;
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+.privacidad__contenido p + p {
+  margin-top: 0.6rem;
+}
+
+.privacidad__contenido strong {
+  color: var(--texto);
+}
+
+.privacidad__fecha {
+  font-style: italic;
+}
+
 .footer__base {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
-  margin-top: 2.5rem;
-  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
   /* Deja libre la esquina del botón flotante de WhatsApp */
   padding-right: 5rem;
   border-top: 1px solid var(--divisor);
@@ -1622,6 +1805,85 @@ main:focus {
 }
 
 /* ---------- WhatsApp flotante ---------- */
+/* ---------- Volver arriba (flotante) ----------
+   Centrado sobre el botón de WhatsApp. Aparece al bajar y se oculta al llegar al pie
+   con animaciones ligadas al scroll; si el navegador no las soporta, se ve siempre. */
+.arriba {
+  position: fixed;
+  right: 1.75rem;
+  bottom: 5.75rem;
+  z-index: 200;
+}
+
+.arriba__boton {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--borde-control);
+  border-radius: 50%;
+  background: var(--superficie);
+  color: var(--acento);
+  box-shadow: var(--sombra);
+  transition: transform var(--transicion);
+}
+
+.arriba__boton:hover {
+  transform: translateY(-3px);
+}
+
+.arriba__boton svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@keyframes arriba-mostrar {
+  from {
+    opacity: 0;
+    visibility: hidden;
+  }
+  to {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@keyframes arriba-ocultar {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@supports (animation-timeline: scroll()) {
+  html {
+    timeline-scope: --pie;
+  }
+
+  .footer {
+    view-timeline-name: --pie;
+  }
+
+  /* Aparece en los primeros 30vh de scroll */
+  .arriba {
+    animation: arriba-mostrar linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 30vh;
+  }
+
+  /* Se oculta cuando el pie empieza a entrar en pantalla */
+  .arriba__boton {
+    animation: arriba-ocultar linear both;
+    animation-timeline: --pie;
+    animation-range: entry 0% entry 25%;
+  }
+}
+
 .whatsapp {
   position: fixed;
   right: 1.25rem;
@@ -1706,9 +1968,38 @@ main:focus {
 /* ---------- Tablet ---------- */
 @media (min-width: 768px) {
   /* Datos en tres columnas separadas por líneas finas */
+  .seccion {
+    padding: 5rem 0;
+  }
+
+  .contenedor--angosto {
+    max-width: 46rem;
+  }
+
+  .sobre-mi {
+    grid-template-columns: auto 1fr;
+    gap: 3rem;
+  }
+
+  .sobre-mi__lateral {
+    align-items: center;
+  }
+
+  .sobre-mi__avatar {
+    width: 12.5rem;
+    height: 12.5rem;
+  }
+
+
   .datos {
-    grid-template-columns: repeat(3, 1fr);
     gap: 0;
+    text-align: left;
+  }
+
+  .datos__texto {
+    max-width: 24ch;
+    font-size: 1rem;
+    line-height: inherit;
   }
 
   .datos__item {
@@ -1723,20 +2014,30 @@ main:focus {
     border-left: 1px solid var(--divisor);
   }
 
-  .sobre-mi {
-    grid-template-columns: auto 1fr;
-    gap: 3rem;
-  }
-
-  .sobre-mi__avatar {
-    width: 12.5rem;
-    height: 12.5rem;
-  }
 
 }
 
 /* ---------- Escritorio ---------- */
 @media (min-width: 1024px) {
+  .banda-cta {
+    margin-top: 3rem;
+    padding: 1.75rem 2rem;
+  }
+
+  .banda-cta__texto {
+    font-size: 1.15rem;
+  }
+
+  .banda-cta__boton {
+    min-height: 2.75rem;
+    padding: 0.85rem 1.6rem;
+    font-size: 1rem;
+  }
+
+  .firma-fondo {
+    width: min(62rem, 140%);
+  }
+
   /* El menú desplegable no se usa en escritorio: se quita también del orden de tabulación */
   #menu,
   .hamburguesa {
@@ -1811,6 +2112,39 @@ main:focus {
     display: block;
   }
 
+  .sobre-mi__texto {
+    max-width: none;
+    columns: 2;
+    column-gap: 2.5rem;
+  }
+
+  /* Sobre mí compacto: entra entero, con los datos, en una pantalla de notebook */
+  .seccion--firma {
+    padding-top: 3.5rem;
+  }
+
+  .seccion--firma .seccion__titulo {
+    margin-bottom: 1.75rem;
+  }
+
+  .sobre-mi__avatar {
+    width: 11rem;
+    height: 11rem;
+  }
+
+  .datos {
+    padding-top: 1rem;
+  }
+
+  .sobre-mi {
+    gap: 2.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .sobre-mi__texto p {
+    font-size: 1rem;
+  }
+
   /* Línea de marca debajo de cada opción del menú al pasar el mouse */
   .nav a:not(.nav__cta) {
     position: relative;
@@ -1841,18 +2175,32 @@ main:focus {
   }
 
   .nav a.nav__cta {
+    align-self: auto;
     margin: 0 0 0 0.35rem;
     padding: 0.55rem 1.3rem;
   }
 
   .footer__grilla {
-    grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr;
   }
 
   .contacto {
     grid-template-columns: 1fr 1.3fr;
     gap: 4rem;
     align-items: start;
+  }
+
+  .contacto .formulario {
+    justify-self: end;
+    max-width: 32rem;
+  }
+
+  .contenedor--angosto {
+    max-width: var(--ancho-max);
+  }
+
+  .etapa__roles dd {
+    font-size: 0.92rem;
   }
 }
 
@@ -1901,8 +2249,14 @@ main:focus {
     .revelar {
       animation: aparecer linear both;
       animation-timeline: view();
-      animation-range: entry 0% entry 35%;
+      animation-range: entry 0% entry 4rem;
     }
+
+    /* En escritorio los 5 pasos están en una fila: cada uno arranca un poco después */
+    .etapa:nth-child(2) { animation-range: entry 10% entry 45%; }
+    .etapa:nth-child(3) { animation-range: entry 20% entry 55%; }
+    .etapa:nth-child(4) { animation-range: entry 30% entry 65%; }
+    .etapa:nth-child(5) { animation-range: entry 40% entry 75%; }
   }
 }
 
@@ -1915,8 +2269,17 @@ main:focus {
   *,
   *::before,
   *::after {
-    animation: none !important;
     transition: none !important;
+  }
+
+  *:not(.arriba, .arriba__boton),
+  *::before,
+  *::after {
+    animation: none !important;
+  }
+
+  .arriba__boton:hover {
+    transform: none;
   }
 }
 
